@@ -17,7 +17,7 @@ public class StackNew extends DataStructure {
 		for (int i = 0; i < dataSet.size(); i++) {
 			array[i] = (int) dataSet.get(dataSet.size() - 1 - i);
 		}
-		return Object[];
+		return null; //Object[];
 	}
 
 }
