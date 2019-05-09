@@ -1,6 +1,6 @@
 package main;
 
-public class Student {
+public class Student implements Comparable<Student> {
 
 	private String firstName;
 	private String lastName;
@@ -12,17 +12,18 @@ public class Student {
 		this.setAge(age);
 	}
 
-	public Student(){}
+	public Student() {
+	}
 
 	public String getFirstName() {
-	return firstName;
+		return firstName;
 	}
 
 	public void setFirstName(String firstName) {
-		if(firstName.length()>1) {
-			this.firstName=firstName.substring(0, 1).toUpperCase()+firstName.substring(1).toLowerCase();
+		if (firstName.length() > 1) {
+			this.firstName = firstName.substring(0, 1).toUpperCase() + firstName.substring(1).toLowerCase();
 		} else {
-			this.firstName=firstName.toUpperCase();
+			this.firstName = firstName.toUpperCase();
 		}
 	}
 
@@ -30,11 +31,11 @@ public class Student {
 		return lastName;
 	}
 
-	public void setLastName (String lastName) {
-		if(lastName.length()>1) {
-			this.lastName=Character.toUpperCase(lastName.charAt(0))+lastName.substring(1).toLowerCase();
+	public void setLastName(String lastName) {
+		if (lastName.length() > 1) {
+			this.lastName = Character.toUpperCase(lastName.charAt(0)) + lastName.substring(1).toLowerCase();
 		} else {
-			this.lastName=lastName;
+			this.lastName = lastName;
 		}
 	}
 
@@ -47,10 +48,12 @@ public class Student {
 	}
 
 	public String getFullName() {
-		return getLastName()+" "+ getFirstName();
+		return getLastName() + " " + getFirstName();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -63,7 +66,9 @@ public class Student {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -88,6 +93,18 @@ public class Student {
 		} else if (!lastName.equals(other.lastName))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Student o) {
+		int result = this.lastName.compareToIgnoreCase(o.lastName);
+		if (result == 0) {
+			result = this.firstName.compareToIgnoreCase(o.firstName);
+			if (result == 0) {
+				result = this.age - o.age;
+			}
+		}
+		return result;
 	}
 
 }
