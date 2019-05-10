@@ -58,7 +58,7 @@ public class ComparatorTest {
 		System.out.println("max= " + findMax(array4, null));
 		System.out.println("min= " + findMin(array4, null));
 		System.out.println(Arrays.toString(array4));
-		bubbleSort(array4, moduleOrder);
+		bubbleSort(array4, null );
 		System.out.println(Arrays.toString(array4));
 	}
 
