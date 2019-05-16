@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import com.sun.codemodel.internal.JOp;
+
 import Exceptions.DataSet;
 
 public class GUIGomoku extends JFrame {
@@ -121,5 +123,36 @@ public class GUIGomoku extends JFrame {
 		}
 	}
 
-///////////////////////////////////////////////////////////////////////
+	protected void handleHumanTurn(int row, int col) {
+		if (gameTable.isCellFree(row, col)) {
+			Cell humanCell = humanTurn.makeTurn(row, col);
+			drawCellValue(humanCell);
+			WinnerResult winnerResult = winnerChecker.isWinnerFound(CellValue.HUMAN);
+			if (winnerResult.winnerExists()) {
+				markWinnerCells(winnerResult.getWinnerCells());
+				handleGameOver("Game over: Draw!\n New game?");
+				return;
+			}
+			if (!gameTable.emptyCellExist()) {
+				handleGameOver("Game over: Draw!\n New game?");
+				return;
+			}
+			Cell compCell = computerTurn.makeTurn();
+			drawCellValue(compCell);
+			winnerResult = winnerChecker.isWinnerFound(CellValue.COMPUTER);
+			if (winnerResult.winnerExists()) {
+				markWinnerCells(winnerResult.getWinnerCells());
+				handleGameOver("Game over: Computer WINS!\n New game?");
+				return;
+			}
+			if (!gameTable.emptyCellExist()) {
+				handleGameOver("Game over: Draw!\n New game?");
+				return;
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Cell is not free! Click on free cell");
+		}
+	}
+
+	///////////////////////////////////////////////////////////////////////
 }
