@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import com.oracle.tools.packager.IOUtils;
@@ -22,7 +23,7 @@ public class DefaultIOUtilsTest {
 		ioUtils.replaceChars(in, out, inChars, outChars);
 		System.out.println(out.toString());
 
-		List<Path> foundPath = ioUtils.findText(Path.get("test"), "purpose", true);
+		List<Path> foundPaths = ioUtils.findText(Paths.get("test"), "purpose", true);
 		if (foundPaths.isEmpty()) {
 			System.out.println("Files not found");
 		} else {
