@@ -4,41 +4,42 @@ import java.util.concurrent.TimeUnit;
 
 public class SyncExampleTest {
 
-	public static void main(String[] args) throws InterruptedException{
+	public static void main(String[] args) throws InterruptedException {
 		final SyncExample syncExample = new SyncExample();
 		Thread producer = new Thread(new Runnable() {
 
-	@Override
-	public void run() {
-		for (int i = 0; i < 10; i++) {
-			syncExample.addString(String.valueOf(i));
+			@Override
+			public void run() {
+				for (int i = 0; i < 10; i++) {
+					syncExample.addString(String.valueOf(i));
+				}
 			}
-		}
-	},"Producer");
+		}, "Producer");
 
-	Thread printer = new Thread(new Runnable() {
-		
-		@Override
-		public void run() {
-			while(!Thread.interrupted()) {
-				String s = syncExample.getString();
-				if(s!=null) {
-					System.out.println(s);
-				} else {
-					try {
-						TimeUnit.SECONDS.sleep(1);
-					} catch (InterruptedException e) {
-						break;
+		Thread printer = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				while (!Thread.interrupted()) {
+					String s = syncExample.getString();
+					if (s != null) {
+						System.out.println(s);
+					} else {
+						try {
+							TimeUnit.SECONDS.sleep(1);
+						} catch (InterruptedException e) {
+							break;
+						}
 					}
 				}
 			}
-		}
-	}, "Printer");
-	producer.start();
-	printer.start();
-	System.out.println("Threads started");
-	
-	TimeUnit.SECONDS.sleep(5);
-	printer.Interrupt();
-	System.out.println("Thread stopped");
+		}, "Printer");
+		producer.start();
+		printer.start();
+		System.out.println("Threads started");
+
+		TimeUnit.SECONDS.sleep(5);
+		printer.interrupt();
+		System.out.println("Thread stopped");
+	}
 }
