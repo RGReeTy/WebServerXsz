@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 import javax.sql.DataSource;
 
 import org.postgresql.ds.PGPoolingDataSource;
@@ -31,7 +32,7 @@ public class GetConnectionTest {
 
 	private static DataSource createPostgresqlDataSource() {
 		PGPoolingDataSource ds = new PGPoolingDataSource();
-		ds.getDataSourceName("A Data source");
+		ds.setDataSourceName("A Data source");
 		ds.setServerName("localhost");
 		ds.setDatabaseName("devstudy");
 		ds.setUser("devstudy");
